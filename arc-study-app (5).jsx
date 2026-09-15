@@ -375,6 +375,10 @@ const rootStyle = {
   color: "var(--text)", fontFamily: "Inter, -apple-system, sans-serif",
   transition: "background 0.4s ease",
 };
+// mobile browsers shrink 100vh when the address bar shows; 100dvh tracks the real visible area
+if (typeof CSS !== "undefined" && CSS.supports?.("height", "100dvh")) {
+  rootStyle.minHeight = "100dvh";
+}
 
 /* ---------------------------------- global style ---------------------------------- */
 
@@ -399,8 +403,10 @@ function GlobalStyle() {
         --gold: #FFD866;
       }
       * { box-sizing: border-box; }
+      html, body, #root { margin: 0; padding: 0; width: 100%; min-height: 100%; }
+      body { min-height: 100vh; min-height: 100dvh; overflow-x: hidden; }
       h1, h2, h3, .arc-display { font-family: 'Space Grotesk', sans-serif; }
-      .arc-shell { display: flex; min-height: 100vh; }
+      .arc-shell { display: flex; min-height: 100vh; min-height: 100dvh; }
       .arc-main { flex: 1; padding: 20px 28px 90px; max-width: 1080px; margin: 0 auto; width: 100%; }
       .arc-card {
         background: var(--surface); border: 1px solid var(--surface-border);
